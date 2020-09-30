@@ -1,3 +1,3 @@
-#MSSC Beer Service
+# MSSC Beer Service
 
 Spring boot microservice
