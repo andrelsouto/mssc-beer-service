@@ -28,9 +28,7 @@ public class BeerController {
     @PostMapping
     public ResponseEntity saveNewBeer(@RequestBody @Validated BeerDto beerDto) throws MalformedURLException, URISyntaxException {
         BeerDto saved = beerService.saveNewBeer(beerDto);
-        return ResponseEntity.created(new UriTemplate("/api/v1/beer/{beerId}")
-                .expand(saved.getId().toString())
-                .toURL().toURI()).build();
+        return new ResponseEntity(saved, HttpStatus.CREATED);
     }
 
     @PutMapping("/{beerId}")
