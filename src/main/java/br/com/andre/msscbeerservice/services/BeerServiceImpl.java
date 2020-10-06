@@ -72,4 +72,11 @@ public class BeerServiceImpl implements BeerService {
 
         return beerPagedList;
     }
+
+    @Cacheable(cacheNames = "beerUpcCache", key = "#upc")
+    @Override
+    public BeerDto getByUpc(String upc) {
+        return beerRepository.findByUpc(upc).map(beerMapper::beerToBeerDto)
+                .orElseThrow(NotFoundException::new);
+    }
 }

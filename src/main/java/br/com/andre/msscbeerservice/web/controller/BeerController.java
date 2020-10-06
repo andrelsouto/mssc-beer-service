@@ -16,13 +16,13 @@ import java.net.URISyntaxException;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/beer")
+@RequestMapping("/api/v1/")
 @RestController
 public class BeerController {
 
     private final BeerService beerService;
 
-    @GetMapping(produces = "application/json")
+    @GetMapping(produces = "application/json", path = "beer")
     public ResponseEntity<BeerPagedList> listBeers(@RequestParam(required = false, defaultValue = "0") Integer pageNumber,
                                                    @RequestParam(required = false, defaultValue = "25") Integer pageSize,
                                                    @RequestParam(required = false, defaultValue = "false") Boolean showInventoryOnHand,
@@ -33,19 +33,24 @@ public class BeerController {
 
     }
 
-    @GetMapping("/{beerId}")
+    @GetMapping("/beer/{beerId}")
     public ResponseEntity<BeerDto> getBeerById(@PathVariable("beerId") UUID beerId,
                                                @RequestParam(required = false, defaultValue = "false") Boolean showInventoryOnHand) {
         return ResponseEntity.ok(beerService.getById(beerId, showInventoryOnHand));
     }
 
-    @PostMapping
+    @GetMapping("/beerUpc/{upc}")
+    public ResponseEntity<BeerDto> getBeerByUpc(@PathVariable("upc") String upc) {
+        return ResponseEntity.ok(beerService.getByUpc(upc));
+    }
+
+    @PostMapping("beer")
     public ResponseEntity saveNewBeer(@RequestBody @Validated BeerDto beerDto) throws MalformedURLException, URISyntaxException {
         BeerDto saved = beerService.saveNewBeer(beerDto);
         return new ResponseEntity(saved, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{beerId}")
+    @PutMapping("/beer/{beerId}")
     public ResponseEntity updateBeerById(@PathVariable("beerId") UUID beerId, @RequestBody @Validated BeerDto beerDto) {
         beerService.updateBeer(beerId, beerDto);
         return ResponseEntity.noContent().build();
