@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriTemplate;
 
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -22,7 +21,7 @@ public class BeerController {
 
     @GetMapping("/{beerId}")
     public ResponseEntity<BeerDto> getBeerById(@PathVariable("beerId") UUID beerId) {
-        return ResponseEntity.ok(beerService.getbyId(beerId));
+        return ResponseEntity.ok(beerService.getById(beerId));
     }
 
     @PostMapping

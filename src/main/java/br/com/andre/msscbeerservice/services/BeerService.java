@@ -5,7 +5,7 @@ import br.com.andre.msscbeerservice.web.model.BeerDto;
 import java.util.UUID;
 
 public interface BeerService {
-    BeerDto getbyId(UUID beerId);
+    BeerDto getById(UUID beerId);
 
     BeerDto saveNewBeer(BeerDto beerDto);
 
