@@ -25,16 +25,18 @@ public class BeerController {
     @GetMapping(produces = "application/json")
     public ResponseEntity<BeerPagedList> listBeers(@RequestParam(required = false, defaultValue = "0") Integer pageNumber,
                                                    @RequestParam(required = false, defaultValue = "25") Integer pageSize,
+                                                   @RequestParam(required = false, defaultValue = "false") Boolean showInventoryOnHand,
                                                    @RequestParam(required = false) String beerName,
                                                    @RequestParam(required = false) BeerStyleEnum beerStyle) {
 
-        return ResponseEntity.ok(beerService.listBeers(beerName, beerStyle, PageRequest.of(pageNumber, pageSize)));
+        return ResponseEntity.ok(beerService.listBeers(beerName, beerStyle, showInventoryOnHand, PageRequest.of(pageNumber, pageSize)));
 
     }
 
     @GetMapping("/{beerId}")
-    public ResponseEntity<BeerDto> getBeerById(@PathVariable("beerId") UUID beerId) {
-        return ResponseEntity.ok(beerService.getById(beerId));
+    public ResponseEntity<BeerDto> getBeerById(@PathVariable("beerId") UUID beerId,
+                                               @RequestParam(required = false, defaultValue = "false") Boolean showInventoryOnHand) {
+        return ResponseEntity.ok(beerService.getById(beerId, showInventoryOnHand));
     }
 
     @PostMapping
