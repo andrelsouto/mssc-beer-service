@@ -27,7 +27,7 @@ public class BeerServiceImpl implements BeerService {
     private final BeerRepository beerRepository;
     private final BeerMapper beerMapper;
 
-    @Cacheable(cacheNames = "beerCache", key = "#beerId",condition = "#showInventoryOnHand == false")
+    @Cacheable(cacheNames = "beerCache", key = "#beerId", condition = "#showInventoryOnHand == false")
     @Override
     public BeerDto getById(UUID beerId, Boolean showInventoryOnHand) {
         return beerRepository.findById(beerId).map(
@@ -62,8 +62,8 @@ public class BeerServiceImpl implements BeerService {
 
         BeerPagedList beerPagedList = new BeerPagedList(
                 beerPage.getContent()
-                .stream().map(showInventoryOnHand ? beerMapper::beerToBeerDtoWithInventory : beerMapper::beerToBeerDto)
-                .collect(Collectors.toList()),
+                        .stream().map(showInventoryOnHand ? beerMapper::beerToBeerDtoWithInventory : beerMapper::beerToBeerDto)
+                        .collect(Collectors.toList()),
                 PageRequest.of(
                         beerPage.getPageable().getPageNumber(),
                         beerPage.getPageable().getPageSize()),

@@ -5,7 +5,7 @@ import br.com.andre.msscbeerservice.web.model.BeerDto;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 
-@Mapper(uses = { DateMapper.class })
+@Mapper(uses = {DateMapper.class})
 @DecoratedWith(BeerMapperDecorator.class)
 public interface BeerMapper {
 
