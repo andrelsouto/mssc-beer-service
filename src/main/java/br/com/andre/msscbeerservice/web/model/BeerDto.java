@@ -2,6 +2,7 @@ package br.com.andre.msscbeerservice.web.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,10 +33,12 @@ public class BeerDto implements Serializable {
 
     @Null
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
+    @JsonDeserialize(using = OffsetDateDeserializer.class)
     private OffsetDateTime createdDate;
 
     @Null
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
+    @JsonDeserialize(using = OffsetDateDeserializer.class)
     private OffsetDateTime lastModifiedDate;
 
     @NotBlank
