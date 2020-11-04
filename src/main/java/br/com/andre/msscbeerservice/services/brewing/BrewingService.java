@@ -1,4 +1,4 @@
-package br.com.andre.msscbeerservice.services;
+package br.com.andre.msscbeerservice.services.brewing;
 
 import br.com.andre.msscbeerservice.config.JmsConfig;
 import br.com.andre.msscbeerservice.domain.Beer;

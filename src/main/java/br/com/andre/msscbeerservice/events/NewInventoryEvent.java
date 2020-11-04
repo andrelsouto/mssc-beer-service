@@ -4,7 +4,7 @@ import br.com.andre.msscbeerservice.web.model.BeerDto;
 
 public class NewInventoryEvent extends BeerEvent {
 
-    NewInventoryEvent(BeerDto beerDto) {
+    public NewInventoryEvent(BeerDto beerDto) {
         super(beerDto);
     }
 
