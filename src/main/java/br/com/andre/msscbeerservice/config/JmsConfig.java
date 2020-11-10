@@ -1,6 +1,7 @@
 package br.com.andre.msscbeerservice.config;
 
 import br.com.andre.msscbeerservice.events.NewInventoryEvent;
+import br.com.andre.msscbeerservice.web.events.ValidateOrderRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +17,8 @@ public class JmsConfig {
 
     public static final String BREWING_REQUEST_QUEUE = "brewing-request";
     public static final String NEW_INVENTORY_QUEUE = "new-inventory";
+    public static final String VALIDATE_ORDER_QUEUE = "validate-order";
+    public static final String VALIDATE_ORDER_RESPONSE_QUEUE = "validate-oreder-response";
 
     @Bean
     public MessageConverter jacksonJmsConverter(ObjectMapper objectMapper) {
@@ -23,8 +26,9 @@ public class JmsConfig {
         converter.setTargetType(MessageType.TEXT);
         Map<String, Class<?>> typeIdMappings = new HashMap<String, Class<?>>();
         typeIdMappings.put("JMS_TYPE", NewInventoryEvent.class);
+        typeIdMappings.put("JMS_VALIDATE_REQUEST", ValidateOrderRequest.class);
         converter.setTypeIdMappings(typeIdMappings);
-        converter.setTypeIdPropertyName("JMS_TYPE");
+//        converter.setTypeIdPropertyName("JMS_TYPE");
         converter.setObjectMapper(objectMapper);
         return converter;
     }
