@@ -10,5 +10,4 @@ import java.util.UUID;
 
 public interface BeerRepository extends JpaRepository<Beer, UUID>, JpaSpecificationExecutor<Beer> {
     Optional<Beer> findByUpc(String upc);
-    List<Beer> findAllByUpc(Iterable<String> upcs);
 }
