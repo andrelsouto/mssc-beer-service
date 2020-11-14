@@ -1,8 +1,8 @@
 package br.com.andre.msscbeerservice.services.listeners;
 
 import br.com.andre.msscbeerservice.config.JmsConfig;
-import br.com.andre.msscbeerservice.events.ValidateOrderResult;
-import br.com.andre.msscbeerservice.web.events.ValidateOrderRequest;
+import br.com.andre.msscbeerservice.web.model.events.ValidateOrderResult;
+import br.com.andre.msscbeerservice.web.model.events.ValidateOrderRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;

@@ -1,4 +1,4 @@
-package br.com.andre.msscbeerservice.events;
+package br.com.andre.msscbeerservice.web.model.events;
 
 import br.com.andre.msscbeerservice.web.model.BeerDto;
 import lombok.NoArgsConstructor;

@@ -2,8 +2,8 @@ package br.com.andre.msscbeerservice.services.brewing;
 
 import br.com.andre.msscbeerservice.config.JmsConfig;
 import br.com.andre.msscbeerservice.domain.Beer;
-import br.com.andre.msscbeerservice.events.BrewBeerEvent;
-import br.com.andre.msscbeerservice.events.NewInventoryEvent;
+import br.com.andre.msscbeerservice.web.model.events.BrewBeerEvent;
+import br.com.andre.msscbeerservice.web.model.events.NewInventoryEvent;
 import br.com.andre.msscbeerservice.repositories.BeerRepository;
 import br.com.andre.msscbeerservice.web.model.BeerDto;
 import lombok.RequiredArgsConstructor;

@@ -2,7 +2,7 @@ package br.com.andre.msscbeerservice.services.brewing;
 
 import br.com.andre.msscbeerservice.config.JmsConfig;
 import br.com.andre.msscbeerservice.domain.Beer;
-import br.com.andre.msscbeerservice.events.BrewBeerEvent;
+import br.com.andre.msscbeerservice.web.model.events.BrewBeerEvent;
 import br.com.andre.msscbeerservice.repositories.BeerRepository;
 import br.com.andre.msscbeerservice.services.inventory.BeerInventoryService;
 import br.com.andre.msscbeerservice.web.mappers.BeerMapper;
