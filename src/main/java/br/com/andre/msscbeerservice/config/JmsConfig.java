@@ -1,5 +1,6 @@
 package br.com.andre.msscbeerservice.config;
 
+import br.com.andre.msscbeerservice.web.model.events.BrewBeerEvent;
 import br.com.andre.msscbeerservice.web.model.events.NewInventoryEvent;
 import br.com.andre.msscbeerservice.web.model.events.ValidateOrderResult;
 import br.com.andre.msscbeerservice.web.model.events.ValidateOrderRequest;
@@ -29,8 +30,9 @@ public class JmsConfig {
         typeIdMappings.put("JMS_TYPE", NewInventoryEvent.class);
         typeIdMappings.put("JMS_VALIDATE_REQUEST", ValidateOrderRequest.class);
         typeIdMappings.put("JMS_VALIDATE_RESPONSE", ValidateOrderResult.class);
+        typeIdMappings.put("JMS_BREWING_REQUEST", BrewBeerEvent.class);
+        converter.setTypeIdPropertyName("_type");
         converter.setTypeIdMappings(typeIdMappings);
-//        converter.setTypeIdPropertyName("JMS_TYPE");
         converter.setObjectMapper(objectMapper);
         return converter;
     }
