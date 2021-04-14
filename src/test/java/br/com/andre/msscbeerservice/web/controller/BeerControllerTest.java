@@ -24,9 +24,9 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(classes = MsscBeerServiceApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureMockMvc
-//@WebMvcTest(BeerController.class)
+//@SpringBootTest(classes = MsscBeerServiceApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+//@AutoConfigureMockMvc
+@WebMvcTest(BeerController.class)
 class BeerControllerTest {
 
     @Autowired

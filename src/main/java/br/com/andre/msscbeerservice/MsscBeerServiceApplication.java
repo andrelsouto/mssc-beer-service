@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableFeignClients
-@EnableJpaRepositories
+//@EnableJpaRepositories
 @SpringBootApplication
 public class MsscBeerServiceApplication {
 
