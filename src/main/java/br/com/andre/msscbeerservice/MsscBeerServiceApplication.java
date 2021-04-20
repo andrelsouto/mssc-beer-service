@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@EnableFeignClients
 //@EnableJpaRepositories
 @SpringBootApplication
+@EnableFeignClients
 public class MsscBeerServiceApplication {
 
     public static void main(String[] args) {
@@ -15,3 +15,4 @@ public class MsscBeerServiceApplication {
     }
 
 }
+
