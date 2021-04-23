@@ -1,0 +1,101 @@
+version: '3.8'
+
+services:
+  jms:
+    image: stec.jfrog.io/beerworks/vromero/activemq-artemis
+    ports:
+      - 8161:8161
+      - 61616:61616
+
+  zipkin:
+    image: stec.jfrog.io/beerworks/openzipkin/zipkin
+    ports:
+      - 9411:9411
+
+  eureka:
+    image: stec.jfrog.io/beerworks/mssc-brewery-eureka
+    ports:
+      - 8761:8761
+
+  config-server:
+    image: stec.jfrog.io/beerworks/mssc-config-server
+    ports:
+      - 8888:8888
+    depends_on:
+      - eureka
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
+
+  inventory_service:
+    image: inventory-service
+    ports:
+      - 8082:8082
+    depends_on:
+      - eureka
+      - config-server
+      - jms
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
+      SPRING_PROFILES_ACTIVE: local-discovery,localmysql
+      SPRING_ZIPKIN_BASEURL: http://zipkin
+      SPRING_ARTEMIS_HOST: jms
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/beerinventoryservice?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+
+  invetory-failover:
+    image: stec.jfrog.io/beerworks/mssc-inventory-failover
+    ports:
+      - 8083:8083
+    depends_on:
+      - eureka
+      - config-server
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
+      SPRING_ZIPKIN_BASEURL: http://zipkin
+
+  beer-service:
+    image: stec.jfrog.io/beerworks/mssc-beer-service
+    ports:
+      - 8080:8080
+    depends_on:
+      - eureka
+      - config-server
+      - jms
+      - inventory_service
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
+      SPRING_PROFILES_ACTIVE: local-discovery,localmysql
+      SPRING_ZIPKIN_BASEURL: http://zipkin
+      SPRING_ARTEMIS_HOST: jms
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/beerservice?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+
+  beer-order-service:
+    image: beer-order-service
+    ports:
+      - 8081:8081
+    depends_on:
+      - eureka
+      - config-server
+      - jms
+      - beer-service
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
+      SPRING_PROFILES_ACTIVE: local-discovery,localmysql
+      SPRING_ZIPKIN_BASEURL: http://zipkin
+      SPRING_ARTEMIS_HOST: jms
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/beerorderservice?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+      SFG_BREWERY_BEER-SERVICE-HOST: http://beer-service:8080
+
+  gateway:
+    image: stec.jfrog.io/beerworks/mssc-brewery-gateway
+    ports:
+      - 9090:9090
+    depends_on:
+      - eureka
+      - config-server
+      - invetory-failover
+      - beer-service
+      - beer-order-service
+      - inventory_service
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
+      SPRING_PROFILES_ACTIVE: local-discovery
