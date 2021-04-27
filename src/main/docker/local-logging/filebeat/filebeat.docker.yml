@@ -14,7 +14,7 @@ filebeat.autodiscover:
                 - decode_json_fields:
                     when.equals:
                       docker.container.labels.decode_log_event_to_json_object: "true"
-                    fields: ["message"]
+                    fields: ["message","springAppName","level"]
                     target: ""
                     overwrite_keys: true
 
